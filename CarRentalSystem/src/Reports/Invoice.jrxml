@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-18T22:11:35 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68abc3e3-609b-4533-a7c2-b363edebb021">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="Parameter1" class="java.lang.String"/>
+	<parameter name="Parameter2" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select bid as Booking_ID,c.name as Customer_Name,b.customerId as Customer_ID,vt.typeName as Vehicle_Type,v.regNumber ,b.StartDate as Start_Date,CAST(bp.payDate as Date) as End_Date,CAST(bp.payDate as Time) as Paid_Time,bp.amount as Charge from booking b, customer c, vehicletype vt, vehicle v,bookingpayment bp where bp.rId=b.bid AND b.vehicleId=v.vehicleId AND b.vehicleId!=0 AND vt.vtId=b.vtId AND b.customerId=c.customerId AND b.customerId= $P{Parameter1} AND bp.rid= $P{Parameter2} AND b.bid IN (select rId from bookingpayment)]]>
+	</queryString>
+	<field name="Booking_ID" class="java.lang.Integer"/>
+	<field name="Customer_Name" class="java.lang.String"/>
+	<field name="Customer_ID" class="java.lang.Integer"/>
+	<field name="Vehicle_Type" class="java.lang.String"/>
+	<field name="regNumber" class="java.lang.String"/>
+	<field name="Start_Date" class="java.sql.Date"/>
+	<field name="End_Date" class="java.sql.Date"/>
+	<field name="Paid_Time" class="java.sql.Time"/>
+	<field name="Charge" class="java.lang.Double"/>
+	<background>
+		<band height="40" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="550" height="88" backcolor="#000000" uuid="0a07fd7d-2c81-4025-8e73-ed766d689558"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-6" y="0" width="550" height="88" forecolor="#FFFFFF" backcolor="#000000" uuid="ca98814c-ea98-4e56-8a0a-5c3212d8ecbe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri Light" size="26"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Payment Invoice]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="106" width="550" height="50" backcolor="#B5B0B0" uuid="913f243f-bc0e-4619-baf3-bd71158c82c5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="120" width="530" height="30" uuid="f565069a-1841-403d-9839-350dc5514de3"/>
+				<text><![CDATA[This Document Ensures that the below payment has been made]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="30" width="100" height="30" uuid="e565cd72-49c0-4aab-a4f4-03407d3c4a16"/>
+				<text><![CDATA[Booking ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="30" width="100" height="30" uuid="9011fd40-8fbf-4384-aa11-dd49b41abb6b"/>
+				<textFieldExpression><![CDATA[$F{Booking_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="70" width="100" height="30" uuid="8596e262-de16-4518-8f9b-eebf6d228524"/>
+				<textFieldExpression><![CDATA[$F{Customer_Name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="70" width="100" height="30" uuid="ddddb42a-172d-4fbd-b07d-65ec43766f82"/>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="331" splitType="Stretch">
+			<textField>
+				<reportElement x="370" y="10" width="100" height="30" uuid="d25d4de8-7dca-4239-9b94-e6a7e37ef2b7"/>
+				<textFieldExpression><![CDATA[$F{Customer_ID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="10" width="100" height="30" uuid="e28161eb-ac1c-4a94-86c9-01e0eb52d737"/>
+				<text><![CDATA[Customer ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="50" width="100" height="30" uuid="1b74581c-98f9-4e86-abd2-e43e851ca527"/>
+				<textFieldExpression><![CDATA[$F{Vehicle_Type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="50" width="100" height="30" uuid="0f79ed74-ea5e-4a92-9c52-724dd04bfd1b"/>
+				<text><![CDATA[Vehicle_Type]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="92" width="100" height="30" uuid="48303e8c-d39c-41a0-b307-f52b6e6af267"/>
+				<textFieldExpression><![CDATA[$F{regNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="90" width="100" height="30" uuid="ade57ece-3286-4fdf-a80e-3bc03a3277e6"/>
+				<text><![CDATA[Rented Vehicle Number]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="130" width="100" height="30" uuid="12408371-338e-48fb-9bf4-30bd033b8af6"/>
+				<textFieldExpression><![CDATA[$F{Start_Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="130" width="100" height="30" uuid="f5e85c8a-ce8d-495f-984c-c9cb9c4d1d29"/>
+				<text><![CDATA[Start Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="170" width="100" height="30" uuid="400db287-c2b7-4e20-8da3-f3849192feda"/>
+				<textFieldExpression><![CDATA[$F{End_Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="170" width="100" height="30" uuid="30f3b606-b14e-477d-9993-9bbf753d1555"/>
+				<text><![CDATA[End Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="210" width="100" height="30" uuid="d0203666-348c-4f4e-a095-71b00e1d396e"/>
+				<textFieldExpression><![CDATA[$F{Charge}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="210" width="100" height="30" uuid="5e1d0fe3-09fa-4a01-862c-e4fb638793c7"/>
+				<text><![CDATA[Charge Rs.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="271" width="550" height="50" backcolor="#E3E3E3" uuid="f9317534-1923-456a-86e6-de88ea8ef646"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="290" width="210" height="30" uuid="2a90c005-8d7b-442a-8f79-952d7035bd18"/>
+				<text><![CDATA[This is a system generated Report]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="320" y="290" width="100" height="30" uuid="d66caeac-2fe5-4acc-838b-c1bb30ab1dff"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="444" y="290" width="100" height="30" uuid="57e1223d-1495-418d-acca-d41be43db86d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
